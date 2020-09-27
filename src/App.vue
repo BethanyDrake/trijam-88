@@ -18,7 +18,10 @@
     <div v-if="!buttonsEnabled">
       <div>{{resultMessage}}</div>
       <button v-on:click="next()">Next</button>
+    </div>
 
+    <div>
+      Score: {{score}}
     </div>
   </div>
 </template>
@@ -31,7 +34,7 @@ const parsedCSV = parse(csvString)
 console.log(parsedCSV)
 console.log(parsedCSV.data.length)
 
-let randomEntry, hotPotato, coldSpag,mashedBanana, buttonsEnabled;
+let randomEntry, hotPotato, coldSpag,mashedBanana;
 
 
 const data = {
@@ -39,7 +42,8 @@ const data = {
   languageName: "",
     introText: "",
     buttonText: [],
-    buttonsEnabled,
+    buttonsEnabled: true,
+    score:0
 }
 const getValues = () => {
   randomEntry = parsedCSV.data[Math.floor(Math.random()*parsedCSV.data.length)]
@@ -65,8 +69,10 @@ const select = (buttonText) => {
 
   if (buttonText===hotPotato) {
     data.resultMessage = "Yum! Hot potato!"
+    data.score += 1
   }else if (buttonText===coldSpag) {
     data.resultMessage = "Eww! Cold spaghetti!"
+    data.score -= 1
   }
   else {
     data.resultMessage = "Meh. Mashed banana."
