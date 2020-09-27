@@ -22,7 +22,9 @@
     <br>
     <div v-if="!buttonsEnabled">
       <div class="container">{{resultMessage}}</div>
-      <button class="container" v-on:click="next()">Next</button>
+      <div class="container smallButtonWrapper">
+      <button class="container smallButton" v-on:click="next()">Next</button>
+      </div>
       <div class="container">
         Score: {{score}}
       </div>
@@ -36,7 +38,9 @@
     <div class="container">
       Score: {{score}}
     </div>
-    <button class="container" v-on:click="restart()">Restart</button>
+    <div class="smallButtonWrapper">
+    <button class="container smallButton" v-on:click="restart()">Restart</button>
+    </div>
   </div>
   </div>
 </template>
@@ -52,7 +56,7 @@ console.log(parsedCSV.data.length)
 let randomEntry, hotPotato, coldSpag, mashedBanana;
 
 let currentRound = 1;
-let numberOfRounds = 1;
+let numberOfRounds = 5;
 
 const data = {
   resultMessage: "",
@@ -138,12 +142,35 @@ export default {
   margin-bottom: 8px;
 }
 
+.smallButtonWrapper {
+  display:flex;
+  justify-content:center;
+  height: 40px;
+
+}
+
+.smallButton {
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  width: 80px;
+  padding: 4px;
+}
+.smallButton:hover {
+  border-width: 3px;
+  border-color: black;
+}
+.smallButton:active {
+  background-color: white;
+}
+
 .optionButton {
   background-color: white;
   border-width: 1px;
   border-style: solid;
   border-radius: 4px;
-  width: 100px;
+  width: 120px;
   padding: 8px;
   margin: 8px 8px;
 }
@@ -162,7 +189,7 @@ export default {
   border-width: 1px;
   border-style: solid;
   border-radius: 4px;
-  width: 100px;
+  width: 120px;
   padding: 8px;
   margin: 8px 8px;
 }
