@@ -34,15 +34,7 @@
 
   </div>
   <div v-if="state==='ended'">
-    <div class="container h1Container">
-    <div class="container h1">Game Over</div>
-  </div>
-    <div class="container">
-      Score: {{score}}
-    </div>
-    <div class="smallButtonWrapper">
-    <button class="container smallButton" v-on:click="restart()">Restart</button>
-    </div>
+    <GameOverScreen v-bind:score="score" v-bind:restart="restart" />
   </div>
   </div>
 </template>
@@ -50,6 +42,7 @@
 <script>
 import { parse } from 'papaparse'
 import {csvString} from './data-string.vue'
+import GameOverScreen from './components/GameOverScreen.vue'
 
 const parsedCSV = parse(csvString)
 console.log(parsedCSV)
@@ -120,6 +113,9 @@ const select = (buttonText) => {
 export default {
   name: 'App',
   data: () => data,
+  components: {
+    GameOverScreen
+  },
   methods: {
     select,
     next,
