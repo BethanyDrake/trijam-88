@@ -2,8 +2,8 @@
   <div id="app">
 
     <div v-if="state==='playing'">
-      <div class="container">
-    <span id="languageName">{{languageName}}</span>
+      <div class="container h1Container">
+    <div class="h1">{{languageName}}</div>
   </div>
     <div class="container">{{introText}}</div>
 
@@ -34,7 +34,9 @@
 
   </div>
   <div v-if="state==='ended'">
-    <div class="container">Game Over</div>
+    <div class="container h1Container">
+    <div class="container h1">Game Over</div>
+  </div>
     <div class="container">
       Score: {{score}}
     </div>
@@ -175,6 +177,9 @@ export default {
   margin: 8px 8px;
 }
 
+button {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
 
 .optionButton:hover{
   border-width: 3px;
@@ -200,13 +205,20 @@ export default {
 
 }
 
-
-#languageName {
+.h1 {
+  font-size: 2em;
   border-color: #d14747;
   background-color: #ffa1a1;
-  padding:0 8px;
+  /* padding:0 16px; */
+  width: 400px;
   color: black;
   border-width: 1px;
   border-style: solid;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
 }
+.h1Container {
+  display: flex;
+  justify-content: center;
+}
+
 </style>
