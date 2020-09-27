@@ -1,18 +1,28 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div>{{languageName}}</div>
+    <div>{{introText}}</div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { parse } from 'papaparse'
+import {csvString} from './data-string.vue'
 
+let parsedCSV = parse(csvString)
+console.log(parsedCSV)
+console.log(parsedCSV.data.length)
+
+const randomEntry = parsedCSV.data[Math.floor(Math.random()*parsedCSV.data.length)]
+let languageName = randomEntry[0]
+let introText = randomEntry[5]
+//console.log(+ ": " + randomEntry[5])
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  data: () => ({
+    languageName,
+    introText
+  }),
 }
 </script>
 
