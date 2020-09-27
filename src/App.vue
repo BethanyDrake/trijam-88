@@ -8,17 +8,18 @@
     <div class="container">{{introText}}</div>
 
 
-    <div v-if="buttonsEnabled" class="container">
-    <button v-for="option in buttonText" :key="option" v-on:click="select(option)">
+    <div v-if="buttonsEnabled" class="container buttonWrapper" >
+    <button class="optionButton" v-for="option in buttonText" :key="option" v-on:click="select(option)">
       {{option}}</button>
 
     </div>
-    <div v-else class="container">
-      <button disabled v-for="option in buttonText" :key="option" v-on:click="select(option)">
+    <div v-else class="container buttonWrapper">
+      <button class="optionButton--disabled" disabled v-for="option in buttonText" :key="option" v-on:click="select(option)">
         {{option}}</button>
     </div>
 
 
+    <br>
     <div v-if="!buttonsEnabled">
       <div class="container">{{resultMessage}}</div>
       <button class="container" v-on:click="next()">Next</button>
@@ -136,6 +137,42 @@ export default {
 .container {
   margin-bottom: 8px;
 }
+
+.optionButton {
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  width: 100px;
+  padding: 8px;
+  margin: 8px 8px;
+}
+
+
+.optionButton:hover{
+  border-width: 3px;
+  border-color: black;
+}
+.optionButton:active{
+  background-color: white;
+}
+
+.optionButton--disabled{
+  background-color: #eaeaea;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  width: 100px;
+  padding: 8px;
+  margin: 8px 8px;
+}
+.buttonWrapper {
+  display:flex;
+  justify-content:center;
+  height: 80px;
+
+}
+
 
 #languageName {
   border-color: #d14747;
