@@ -32,6 +32,7 @@
     <div>
       Score: {{score}}
     </div>
+    <button v-on:click="restart()">Restart</button>
   </div>
   </div>
 </template>
@@ -70,6 +71,12 @@ const getValues = () => {
 }
 getValues()
 
+const restart = () => {
+  data.score = 0;
+  currentRound = 1;
+  getValues();
+  data.state = "playing"
+}
 
 const endGame = () => {
   data.state = "ended"
@@ -105,7 +112,8 @@ export default {
   data: () => data,
   methods: {
     select,
-    next
+    next,
+    restart
   }
 }
 </script>
