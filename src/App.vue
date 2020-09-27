@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+
+    <div v-if="state==='playing'">
     <div>{{languageName}}</div>
     <div>{{introText}}</div>
 
@@ -23,6 +25,14 @@
     <div>
       Score: {{score}}
     </div>
+
+  </div>
+  <div v-if="state==='ended'">
+    Game Over
+    <div>
+      Score: {{score}}
+    </div>
+  </div>
   </div>
 </template>
 
@@ -34,8 +44,10 @@ const parsedCSV = parse(csvString)
 console.log(parsedCSV)
 console.log(parsedCSV.data.length)
 
-let randomEntry, hotPotato, coldSpag,mashedBanana;
+let randomEntry, hotPotato, coldSpag, mashedBanana;
 
+let currentRound = 1;
+let numberOfRounds = 5;
 
 const data = {
   resultMessage: "",
@@ -43,7 +55,8 @@ const data = {
     introText: "",
     buttonText: [],
     buttonsEnabled: true,
-    score:0
+    score:0,
+    state: "playing"
 }
 const getValues = () => {
   randomEntry = parsedCSV.data[Math.floor(Math.random()*parsedCSV.data.length)]
@@ -57,10 +70,18 @@ const getValues = () => {
 }
 getValues()
 
+
+const endGame = () => {
+  data.state = "ended"
+}
 const next = () => {
   console.log("next")
   data.buttonsEnabled = true;
   getValues();
+  currentRound++;
+  if (currentRound > numberOfRounds) {
+    endGame()
+  }
 }
 
 const select = (buttonText) => {
