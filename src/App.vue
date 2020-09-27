@@ -2,37 +2,40 @@
   <div id="app">
 
     <div v-if="state==='playing'">
-    <div>{{languageName}}</div>
-    <div>{{introText}}</div>
+      <div class="container">
+    <span id="languageName">{{languageName}}</span>
+  </div>
+    <div class="container">{{introText}}</div>
 
 
-    <div v-if="buttonsEnabled">
+    <div v-if="buttonsEnabled" class="container">
     <button v-for="option in buttonText" :key="option" v-on:click="select(option)">
       {{option}}</button>
 
     </div>
-    <div v-else>
+    <div v-else class="container">
       <button disabled v-for="option in buttonText" :key="option" v-on:click="select(option)">
         {{option}}</button>
     </div>
 
 
     <div v-if="!buttonsEnabled">
-      <div>{{resultMessage}}</div>
-      <button v-on:click="next()">Next</button>
+      <div class="container">{{resultMessage}}</div>
+      <button class="container" v-on:click="next()">Next</button>
+      <div class="container">
+        Score: {{score}}
+      </div>
     </div>
 
-    <div>
-      Score: {{score}}
-    </div>
+
 
   </div>
   <div v-if="state==='ended'">
-    Game Over
-    <div>
+    <div class="container">Game Over</div>
+    <div class="container">
       Score: {{score}}
     </div>
-    <button v-on:click="restart()">Restart</button>
+    <button class="container" v-on:click="restart()">Restart</button>
   </div>
   </div>
 </template>
@@ -48,7 +51,7 @@ console.log(parsedCSV.data.length)
 let randomEntry, hotPotato, coldSpag, mashedBanana;
 
 let currentRound = 1;
-let numberOfRounds = 5;
+let numberOfRounds = 1;
 
 const data = {
   resultMessage: "",
@@ -126,5 +129,20 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  border-color: black;
+  padding: 32px;
+}
+
+.container {
+  margin-bottom: 8px;
+}
+
+#languageName {
+  border-color: #d14747;
+  background-color: #ffa1a1;
+  padding:0 8px;
+  color: black;
+  border-width: 1px;
+  border-style: solid;
 }
 </style>
