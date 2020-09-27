@@ -2,9 +2,19 @@
   <div id="app">
     <div>{{languageName}}</div>
     <div>{{introText}}</div>
-    <button>{{buttonText[0]}}</button>
-    <button>{{buttonText[1]}}</button>
-    <button>{{buttonText[2]}}</button>
+
+
+    <div v-if="buttonsEnabled">
+    <button v-for="option in buttonText" :key="option" v-on:click="select(option)">
+      {{option}}</button>
+
+    </div>
+    <div v-else>
+      <button disabled v-for="option in buttonText" :key="option" v-on:click="select(option)">
+        {{option}}</button>
+    </div>
+
+    <div v-if="!buttonsEnabled">{{resultMessage}}</div>
   </div>
 </template>
 
@@ -25,15 +35,37 @@ let coldSpag = randomEntry[3]
 let mashedBanana = randomEntry[4]
 
 let buttonText = [hotPotato, coldSpag, mashedBanana].sort(() => Math.random() -0.5)
+let resultMessage =""
+let buttonsEnabled = true;
+const select = (buttonText) => {
+  console.log("selected "+ buttonText)
+  data.buttonsEnabled = false;
+
+  if (buttonText===hotPotato) {
+    data.resultMessage = "Yum! Hot potato!"
+  }else if (buttonText===coldSpag) {
+    data.resultMessage = "Eww! Cold spaghetti!"
+  }
+  else {
+    data.resultMessage = "Meh. Mashed banana."
+  }
+}
+
+const data = {
+  resultMessage,
+  languageName,
+    introText,
+    buttonText,
+    buttonsEnabled,
+}
 
 //console.log(+ ": " + randomEntry[5])
 export default {
   name: 'App',
-  data: () => ({
-    languageName,
-    introText,
-    buttonText,
-  }),
+  data: () => data,
+  methods: {
+    select
+  }
 }
 </script>
 
