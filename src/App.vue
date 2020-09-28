@@ -15,14 +15,11 @@
 </template>
 
 <script>
-  import { parse } from 'papaparse'
-  import { csvString } from './data-string.vue'
+
   import GameOverScreen from './components/GameOverScreen.vue'
   import MainScreen from './components/MainScreen.vue'
   import Result from './components/Result.vue'
-  const parsedCSV = parse(csvString)
-  console.log(parsedCSV)
-  console.log(parsedCSV.data.length)
+  import {getRandomLanguageData} from './LanguageDataService.vue'
 
   let currentRound = 1;
   let numberOfRounds = 5;
@@ -34,27 +31,13 @@
     score: 0,
     state: "playing"
   }
-  const getValues = (parsedCSV) => {
-    const randomEntry = parsedCSV.data[Math.floor(Math.random() * parsedCSV.data.length)]
-    const sortedOptions = [randomEntry[2],randomEntry[3], randomEntry[4]];
-    const unsortedOptions = sortedOptions.sort(() => {Math.random() - 0.5});
 
-    return {
-      languageName:randomEntry[0],
-      hotPotato: randomEntry[2],
-      coldSpag: randomEntry[3],
-      mashedBanana: randomEntry[4],
-      introText: randomEntry[5],
-      unsortedOptions,
-    }
-
-  }
-  data.languageData = getValues(parsedCSV)
+  data.languageData = getRandomLanguageData()
 
   const restart = () => {
     data.score = 0;
     currentRound = 1;
-    getValues(parsedCSV);
+    getRandomLanguageData();
     data.state = "playing"
   }
 
@@ -64,7 +47,7 @@
   const next = () => {
     console.log("next")
     data.displayResult = false;
-    data.languageData = getValues(parsedCSV);
+    data.languageData = getRandomLanguageData();
     currentRound++;
     if (currentRound > numberOfRounds) {
       endGame()
