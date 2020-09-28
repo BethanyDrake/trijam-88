@@ -127,43 +127,8 @@
     background-color: white;
   }
 
-  .optionButton {
-    background-color: white;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 4px;
-    width: 120px;
-    padding: 8px;
-    margin: 8px 8px;
-  }
-
   button {
     font-family: Avenir, Helvetica, Arial, sans-serif;
   }
 
-  .optionButton:hover {
-    border-width: 3px;
-    border-color: black;
-  }
-
-  .optionButton:active {
-    background-color: white;
-  }
-
-  .optionButton--disabled {
-    background-color: #eaeaea;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 4px;
-    width: 120px;
-    padding: 8px;
-    margin: 8px 8px;
-  }
-
-  .buttonWrapper {
-    display: flex;
-    justify-content: center;
-    height: 80px;
-
-  }
 </style>

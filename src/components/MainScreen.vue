@@ -5,27 +5,18 @@
     <div class="container">{{introText}}</div>
 
 
-    <div v-if="buttonsEnabled" class="container buttonWrapper">
-      <button class="optionButton" v-for="option in buttonText" :key="option" v-on:click="select(option)">
-        {{option}}</button>
-
-    </div>
-    <div v-else class="container buttonWrapper">
-      <button class="optionButton--disabled" disabled v-for="option in buttonText" :key="option"
-        v-on:click="select(option)">
-        {{option}}</button>
-    </div>
-
+    <OptionButtons v-bind:buttonsEnabled="buttonsEnabled" v-bind:options="buttonText" v-bind:select="select"/>
     <br>
 
   </div>
 </template>
 <script>
   import Header from './Header.vue'
+  import OptionButtons from './OptionButtons.vue'
 
   export default {
     name: 'MainScreen',
-    components: {Header},
+    components: {Header, OptionButtons},
     props: ['buttonText', 'introText', 'languageName', 'select', 'buttonsEnabled']
   }
 </script>
