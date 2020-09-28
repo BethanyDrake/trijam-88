@@ -2,8 +2,8 @@
   <div id="app">
 
     <div v-if="state==='playing'">
-      <MainScreen v-bind:score="score" v-bind:buttonText="buttonText" v-bind:resultMessage="resultMessage"
-        v-bind:introText="introText" v-bind:languageName="languageName" v-bind:buttonsEnabled="buttonsEnabled" v-bind:next="next" v-bind:select="select" />
+      <MainScreen v-bind:score="score" v-bind:buttonText="languageData.unsortedOptions" v-bind:resultMessage="resultMessage"
+        v-bind:introText="languageData.introText" v-bind:languageName="languageData.languageName" v-bind:buttonsEnabled="buttonsEnabled" v-bind:next="next" v-bind:select="select" />
 
 
 
@@ -23,36 +23,37 @@
   console.log(parsedCSV)
   console.log(parsedCSV.data.length)
 
-  let randomEntry, hotPotato, coldSpag, mashedBanana;
-
   let currentRound = 1;
   let numberOfRounds = 5;
 
   const data = {
     resultMessage: "",
-    languageName: "",
-    introText: "",
-    buttonText: [],
+    languageData: {},
     buttonsEnabled: true,
     score: 0,
     state: "playing"
   }
-  const getValues = () => {
-    randomEntry = parsedCSV.data[Math.floor(Math.random() * parsedCSV.data.length)]
-    hotPotato = randomEntry[2]
-    coldSpag = randomEntry[3]
-    mashedBanana = randomEntry[4]
-    data.buttonText = [hotPotato, coldSpag, mashedBanana].sort(() => Math.random() - 0.5)
-    data.introText = randomEntry[5]
-    data.languageName = randomEntry[0]
+  const getValues = (parsedCSV) => {
+    const randomEntry = parsedCSV.data[Math.floor(Math.random() * parsedCSV.data.length)]
+    const sortedOptions = [randomEntry[2],randomEntry[3], randomEntry[4]];
+    const unsortedOptions = sortedOptions.sort(() => {Math.random() - 0.5});
+
+    return {
+      languageName:randomEntry[0],
+      hotPotato: randomEntry[2],
+      coldSpag: randomEntry[3],
+      mashedBanana: randomEntry[4],
+      introText: randomEntry[5],
+      unsortedOptions,
+    }
 
   }
-  getValues()
+  data.languageData = getValues(parsedCSV)
 
   const restart = () => {
     data.score = 0;
     currentRound = 1;
-    getValues();
+    getValues(parsedCSV);
     data.state = "playing"
   }
 
@@ -62,7 +63,7 @@
   const next = () => {
     console.log("next")
     data.buttonsEnabled = true;
-    getValues();
+    data.languageData = getValues(parsedCSV);
     currentRound++;
     if (currentRound > numberOfRounds) {
       endGame()
@@ -73,10 +74,10 @@
     console.log("selected " + buttonText)
     data.buttonsEnabled = false;
 
-    if (buttonText === hotPotato) {
+    if (buttonText === data.languageData.hotPotato) {
       data.resultMessage = "Yum! Hot potato!"
       data.score += 1
-    } else if (buttonText === coldSpag) {
+    } else if (buttonText === data.languageData.coldSpag) {
       data.resultMessage = "Eww! Cold spaghetti!"
       data.score -= 1
     }
