@@ -13,7 +13,6 @@
 </template>
 
 <script>
-
   export default {
     name: 'GameOverScreen',
     props: ['score', 'restart']

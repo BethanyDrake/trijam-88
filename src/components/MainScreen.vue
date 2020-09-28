@@ -1,38 +1,30 @@
 <template>
   <div>
-  <div class="container h1Container">
-    <div class="h1">{{languageName}}</div>
-  </div>
-  <div class="container">{{introText}}</div>
-
-
-  <div v-if="buttonsEnabled" class="container buttonWrapper">
-    <button class="optionButton" v-for="option in buttonText" :key="option" v-on:click="select(option)">
-      {{option}}</button>
-
-  </div>
-  <div v-else class="container buttonWrapper">
-    <button class="optionButton--disabled" disabled v-for="option in buttonText" :key="option"
-      v-on:click="select(option)">
-      {{option}}</button>
-  </div>
-
-
-  <br>
-  <div v-if="!buttonsEnabled">
-    <div class="container">{{resultMessage}}</div>
-    <div class="container smallButtonWrapper">
-      <button class="container smallButton" v-on:click="next()">Next</button>
+    <div class="container h1Container">
+      <div class="h1">{{languageName}}</div>
     </div>
-    <div class="container">
-      Score: {{score}}
+    <div class="container">{{introText}}</div>
+
+
+    <div v-if="buttonsEnabled" class="container buttonWrapper">
+      <button class="optionButton" v-for="option in buttonText" :key="option" v-on:click="select(option)">
+        {{option}}</button>
+
     </div>
+    <div v-else class="container buttonWrapper">
+      <button class="optionButton--disabled" disabled v-for="option in buttonText" :key="option"
+        v-on:click="select(option)">
+        {{option}}</button>
+    </div>
+
+    <br>
+
   </div>
-</div>
 </template>
 <script>
- export default {
+
+  export default {
     name: 'MainScreen',
-    props: ['score', 'buttonText', 'resultMessage', 'introText', 'languageName', 'buttonsEnabled', 'next', 'select']
+    props: ['buttonText', 'introText', 'languageName', 'select', 'buttonsEnabled']
   }
 </script>

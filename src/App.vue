@@ -2,11 +2,11 @@
   <div id="app">
 
     <div v-if="state==='playing'">
-      <MainScreen v-bind:score="score" v-bind:buttonText="languageData.unsortedOptions" v-bind:resultMessage="resultMessage"
-        v-bind:introText="languageData.introText" v-bind:languageName="languageData.languageName" v-bind:buttonsEnabled="buttonsEnabled" v-bind:next="next" v-bind:select="select" />
-
-
-
+      <MainScreen v-bind:buttonText="languageData.unsortedOptions"
+        v-bind:introText="languageData.introText" v-bind:languageName="languageData.languageName" v-bind:select="select" v-bind:buttonsEnabled="!displayResult" />
+        <div v-if="displayResult">
+          <Result v-bind:score="score" v-bind:resultMessage="resultMessage" v-bind:next="next"  />
+        </div>
     </div>
     <div v-if="state==='ended'">
       <GameOverScreen v-bind:score="score" v-bind:restart="restart" />
@@ -19,6 +19,7 @@
   import { csvString } from './data-string.vue'
   import GameOverScreen from './components/GameOverScreen.vue'
   import MainScreen from './components/MainScreen.vue'
+  import Result from './components/Result.vue'
   const parsedCSV = parse(csvString)
   console.log(parsedCSV)
   console.log(parsedCSV.data.length)
@@ -29,7 +30,7 @@
   const data = {
     resultMessage: "",
     languageData: {},
-    buttonsEnabled: true,
+    displayResult: false,
     score: 0,
     state: "playing"
   }
@@ -62,7 +63,7 @@
   }
   const next = () => {
     console.log("next")
-    data.buttonsEnabled = true;
+    data.displayResult = false;
     data.languageData = getValues(parsedCSV);
     currentRound++;
     if (currentRound > numberOfRounds) {
@@ -72,7 +73,7 @@
 
   const select = (buttonText) => {
     console.log("selected " + buttonText)
-    data.buttonsEnabled = false;
+    data.displayResult = true;
 
     if (buttonText === data.languageData.hotPotato) {
       data.resultMessage = "Yum! Hot potato!"
@@ -91,7 +92,8 @@
     data: () => data,
     components: {
       GameOverScreen,
-      MainScreen
+      MainScreen,
+      Result
     },
     methods: {
       select,
