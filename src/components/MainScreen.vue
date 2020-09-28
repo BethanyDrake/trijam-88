@@ -1,8 +1,7 @@
 <template>
   <div>
-    <div class="container h1Container">
-      <div class="h1">{{languageName}}</div>
-    </div>
+
+    <Header v-bind:text="languageName" />
     <div class="container">{{introText}}</div>
 
 
@@ -22,9 +21,11 @@
   </div>
 </template>
 <script>
+  import Header from './Header.vue'
 
   export default {
     name: 'MainScreen',
+    components: {Header},
     props: ['buttonText', 'introText', 'languageName', 'select', 'buttonsEnabled']
   }
 </script>

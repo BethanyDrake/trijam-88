@@ -171,7 +171,6 @@
     font-size: 2em;
     border-color: #d14747;
     background-color: #ffa1a1;
-    /* padding:0 16px; */
     width: 400px;
     color: black;
     border-width: 1px;

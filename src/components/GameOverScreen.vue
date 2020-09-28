@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div class="container h1Container">
-      <div class="container h1">Game Over</div>
-    </div>
+    <Header text="Game Over" />
     <div class="container">
       Score: {{score}}
     </div>
@@ -13,8 +11,13 @@
 </template>
 
 <script>
+  import Header from './Header.vue'
+
   export default {
     name: 'GameOverScreen',
+    components: {
+      Header
+    },
     props: ['score', 'restart']
   }
 </script>
