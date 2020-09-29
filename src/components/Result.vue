@@ -3,7 +3,7 @@
   <div>
     <div class="container">{{resultMessage}}</div>
     <div class="container smallButtonWrapper">
-      <button class="container smallButton" v-on:click="next()">Next</button>
+      <button id="nextButton" class="container smallButton" v-on:click="next()">Next</button>
     </div>
     <div class="container">
       Score: {{score}}

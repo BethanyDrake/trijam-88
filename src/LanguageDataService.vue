@@ -8,7 +8,6 @@ export default {
 }
 
 export const getRandomLanguageData = () => {
-  console.log("getting language data")
     const randomEntry = parsedCSV.data[Math.floor(Math.random() * parsedCSV.data.length)]
     const sortedOptions = [randomEntry[2],randomEntry[3], randomEntry[4]];
     const unsortedOptions = sortedOptions.sort(() => Math.random() - 0.5);

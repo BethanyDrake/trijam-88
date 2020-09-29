@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-
     <div v-if="state==='playing'">
-      <MainScreen v-bind:buttonText="languageData.unsortedOptions"
-        v-bind:introText="languageData.introText" v-bind:languageName="languageData.languageName" v-bind:select="select" v-bind:buttonsEnabled="!displayResult" />
-        <div v-if="displayResult">
-          <Result v-bind:score="score" v-bind:resultMessage="resultMessage" v-bind:next="next"  />
-        </div>
+      <MainScreen v-bind:buttonText="languageData.unsortedOptions" v-bind:introText="languageData.introText"
+        v-bind:languageName="languageData.languageName" v-bind:select="select" v-bind:buttonsEnabled="!displayResult" />
+      <div v-if="displayResult">
+        <Result v-bind:score="score" v-bind:resultMessage="resultMessage" v-bind:next="next" />
+      </div>
     </div>
     <div v-if="state==='ended'">
       <GameOverScreen v-bind:score="score" v-bind:restart="restart" />
@@ -19,11 +18,9 @@
   import GameOverScreen from './components/GameOverScreen.vue'
   import MainScreen from './components/MainScreen.vue'
   import Result from './components/Result.vue'
-  import {getRandomLanguageData} from './LanguageDataService.vue'
+  import { getRandomLanguageData } from './LanguageDataService.vue'
 
-  let currentRound = 1;
-  let numberOfRounds = 5;
-
+  let currentRound
   const data = {
     resultMessage: "",
     languageData: {},
@@ -32,8 +29,7 @@
     state: "playing"
   }
 
-  data.languageData = getRandomLanguageData()
-
+  const numberOfRounds = 5;
   const restart = () => {
     data.score = 0;
     currentRound = 1;
@@ -45,7 +41,6 @@
     data.state = "ended"
   }
   const next = () => {
-    console.log("next")
     data.displayResult = false;
     data.languageData = getRandomLanguageData();
     currentRound++;
@@ -55,7 +50,6 @@
   }
 
   const select = (buttonText) => {
-    console.log("selected " + buttonText)
     data.displayResult = true;
 
     if (buttonText === data.languageData.hotPotato) {
@@ -72,7 +66,17 @@
 
   export default {
     name: 'App',
+    props: ['testId'],
     data: () => data,
+    created: function () {
+      data.resultMessage = "",
+      data.languageData = {},
+      data.displayResult = false,
+      data.score = 0,
+      data.state = "playing"
+      currentRound = 1
+      data.languageData = getRandomLanguageData()
+    },
     components: {
       GameOverScreen,
       MainScreen,
@@ -81,7 +85,7 @@
     methods: {
       select,
       next,
-      restart
+      restart,
     }
   }
 </script>
@@ -130,5 +134,4 @@
   button {
     font-family: Avenir, Helvetica, Arial, sans-serif;
   }
-
 </style>
