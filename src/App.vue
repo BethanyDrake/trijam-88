@@ -1,11 +1,10 @@
 <template>
   <div id="app">
     <div v-if="state==='playing'">
-      <MainScreen v-bind:buttonText="languageData.unsortedOptions" v-bind:introText="languageData.introText"
-        v-bind:languageName="languageData.languageName" v-bind:select="select" v-bind:buttonsEnabled="!displayResult" />
-      <div v-if="displayResult">
-        <Result v-bind:score="score" v-bind:resultMessage="resultMessage" v-bind:next="next" />
-      </div>
+      <MainScreen
+        v-bind:endGame='endGame'
+        />
+
     </div>
     <div v-if="state==='ended'">
       <GameOverScreen v-bind:score="score" v-bind:restart="restart" />
@@ -17,51 +16,23 @@
 
   import GameOverScreen from './components/GameOverScreen.vue'
   import MainScreen from './components/MainScreen.vue'
-  import Result from './components/Result.vue'
-  import { getRandomLanguageData } from './LanguageDataService.vue'
 
-  let currentRound
+
   const data = {
-    resultMessage: "",
-    languageData: {},
-    displayResult: false,
+    state: 'playing',
     score: 0,
-    state: "playing"
   }
 
-  const numberOfRounds = 5;
-  const restart = () => {
-    data.score = 0;
-    currentRound = 1;
-    getRandomLanguageData();
-    data.state = "playing"
-  }
-
-  const endGame = () => {
+  const endGame = (score) => {
+    console.log("end game -- app")
     data.state = "ended"
-  }
-  const next = () => {
-    data.displayResult = false;
-    data.languageData = getRandomLanguageData();
-    currentRound++;
-    if (currentRound > numberOfRounds) {
-      endGame()
-    }
+    data.score = score
+
   }
 
-  const select = (buttonText) => {
-    data.displayResult = true;
-
-    if (buttonText === data.languageData.hotPotato) {
-      data.resultMessage = "Yum! Hot potato!"
-      data.score += 1
-    } else if (buttonText === data.languageData.coldSpag) {
-      data.resultMessage = "Eww! Cold spaghetti!"
-      data.score -= 1
-    }
-    else {
-      data.resultMessage = "Meh. Mashed banana."
-    }
+  const restart = () => {
+    console.log("restart - app")
+    data.state = "playing"
   }
 
   export default {
@@ -69,23 +40,16 @@
     props: ['testId'],
     data: () => data,
     created: function () {
-      data.resultMessage = "",
-      data.languageData = {},
-      data.displayResult = false,
       data.score = 0,
       data.state = "playing"
-      currentRound = 1
-      data.languageData = getRandomLanguageData()
-    },
+     },
     components: {
       GameOverScreen,
       MainScreen,
-      Result
     },
     methods: {
-      select,
-      next,
       restart,
+      endGame,
     }
   }
 </script>

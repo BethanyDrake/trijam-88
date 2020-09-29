@@ -8,11 +8,11 @@ describe('App.vue', () => {
     const button = wrapper.find('button')
     await button.trigger('click')
     expect(wrapper.text()).toContain("Score")
-
   })
 
   test('I can click next to go to the next round', async () => {
     const wrapper = mount(App)
+    await Promise.resolve()
     expect(wrapper.text()).not.toContain("Next")
     const button = wrapper.find('button')
     await button.trigger('click')
