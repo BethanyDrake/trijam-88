@@ -1,5 +1,6 @@
 import { mount} from '@vue/test-utils'
 import App from '@/App.vue'
+import Vue from 'vue'
 
 describe('App.vue', () => {
   test('when I click a button, it shows me my updated score', async () => {
@@ -12,7 +13,7 @@ describe('App.vue', () => {
 
   test('I can click next to go to the next round', async () => {
     const wrapper = mount(App)
-    await Promise.resolve()
+    await Vue.nextTick()
     expect(wrapper.text()).not.toContain("Next")
     const button = wrapper.find('button')
     await button.trigger('click')
