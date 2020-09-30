@@ -32,6 +32,7 @@
 
   const next = () => {
     data.displayResult = false;
+    data.buttonsEnabled = true;
     data.languageData = getRandomLanguageData();
     currentRound++;
     if (currentRound > numberOfRounds) {
@@ -42,6 +43,7 @@
 
   const select = (buttonText) => {
     data.displayResult = true;
+    data.buttonsEnabled = false;
 
     if (buttonText === data.languageData.hotPotato) {
       data.resultMessage = "Yum! Hot potato!"
