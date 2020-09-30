@@ -22,11 +22,11 @@ describe('App.vue', () => {
 
   test('after 5 rounds, it is game over', async () => {
     const wrapper = mount(App)
+    await Vue.nextTick()
     for (let i=0; i<5;i++) {
       expect(wrapper.text()).not.toContain("Game Over")
       const button = wrapper.find('button')
       await button.trigger('click')
-
       const nextButton = wrapper.find('#nextButton')
       await nextButton.trigger('click')
     }
