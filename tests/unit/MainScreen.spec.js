@@ -1,6 +1,8 @@
 import { mount } from '@vue/test-utils'
 import MainScreen from '@/components/MainScreen.vue'
 import OptionButtons from  '@/components/OptionButtons.vue'
+import Result from '@/components/Result.vue'
+
 
 describe('MainScreen.vue', () => {
   test('When I click an option button, the option buttons are disabled', async () => {
@@ -11,5 +13,16 @@ describe('MainScreen.vue', () => {
     expect(optionButtons.props('buttonsEnabled')).toEqual(true)
     await optionButtons.find('button').trigger('click');
     expect(optionButtons.props('buttonsEnabled')).toEqual(false)
+  })
+
+  test('When I click an option button, the result is displayed', async () => {
+    const wrapper = mount(MainScreen, {
+      propsData: {  }
+    })
+    const optionButtons = wrapper.findComponent(OptionButtons)
+    await optionButtons.find('button').trigger('click');
+
+    const resultScreen = wrapper.findComponent(Result)
+    expect(resultScreen).toBeDefined();
   })
 })
